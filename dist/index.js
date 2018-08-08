@@ -1945,6 +1945,7 @@ function setup ({
     saveAnnotationText,
     createSpanAnnotation,
     createRelAnnotation,
+    createRectAnnotation = null,
     colorChangeListener = function () {},
     namingRuleForExport = __WEBPACK_IMPORTED_MODULE_1__behavior__["a" /* defaultNamingRuleForExport */]
 }) {
@@ -1953,7 +1954,11 @@ function setup ({
     __WEBPACK_IMPORTED_MODULE_0__core__["g" /* setup */](saveAnnotationText)
 
     // Define user actions.
+<<<<<<< HEAD
     __WEBPACK_IMPORTED_MODULE_1__behavior__["c" /* setup */](createSpanAnnotation, createRelAnnotation, namingRuleForExport)
+=======
+    __WEBPACK_IMPORTED_MODULE_1__behavior__["b" /* setup */]({ createSpanAnnotation, createRelAnnotation, createRectAnnotation, namingRuleForExport })
+>>>>>>> 0e60e9add808f8bdf9d09f3a7b0e291e633ecd06
 
     // Define window event listeners.
     __WEBPACK_IMPORTED_MODULE_2__listener__["a" /* setup */](getSelectedAnnotations)
@@ -2043,7 +2048,7 @@ exports.push([module.i, "\n.inputLabel {\n    font-size: 20px;\n}\n\n/**\n * Lab
 /**
  * Setup the behaviors for Input Label.
  */
-function setup (createSpanAnnotation, createRelAnnotation, namingRuleForExport) {
+function setup ({ createSpanAnnotation, createRelAnnotation, createRectAnnotation, namingRuleForExport }) {
 
     __WEBPACK_IMPORTED_MODULE_3__core__["f" /* setCurrentTab */]('span')
 
@@ -2054,7 +2059,7 @@ function setup (createSpanAnnotation, createRelAnnotation, namingRuleForExport) 
     setupTrashButton()
 
     // Set the action when a label is clicked.
-    setupLabelText(createSpanAnnotation, createRelAnnotation)
+    setupLabelText(createSpanAnnotation, createRelAnnotation, createRectAnnotation)
 
     // Set tab behavior.
     setupTabClick()
@@ -2099,7 +2104,32 @@ function initializeLabelDb () {
 function setupTabClick () {
     $('.js-label-tab').on('click', e => {
         const type = $(e.currentTarget).data('type')
+<<<<<<< HEAD
         const labels = __WEBPACK_IMPORTED_MODULE_2__db__["a" /* getLabelList */]()[type].labels
+=======
+        let d = __WEBPACK_IMPORTED_MODULE_2__db__["a" /* getLabelList */]()
+        const labelObject = d[type] || {}
+        let labels
+        if (labelObject.labels === undefined) {
+
+            let text = ''
+            if (type === 'span') {
+                text = 'span1'
+            } else if (type === 'rect') {
+                text = 'rect1'
+            } else {
+                text = 'relation1'
+            }
+
+            labels = [ [ text, __WEBPACK_IMPORTED_MODULE_4__color__["b" /* colors */][0] ] ]
+        } else {
+            labels = labelObject.labels
+        }
+
+        labelObject.labels = labels
+        d[type] = labelObject
+        __WEBPACK_IMPORTED_MODULE_2__db__["b" /* saveLabelList */](d)
+>>>>>>> 0e60e9add808f8bdf9d09f3a7b0e291e633ecd06
 
         // currentTab = type
         __WEBPACK_IMPORTED_MODULE_3__core__["f" /* setCurrentTab */](type)
@@ -2255,7 +2285,7 @@ function setupTrashButton () {
 /**
  * Set the behavior which a label text is clicked.
  */
-function setupLabelText (createSpanAnnotation, createRelAnnotation) {
+function setupLabelText (createSpanAnnotation, createRelAnnotation, createRectAnnotation) {
     $('.js-label-tab-content').on('click', '.js-label', e => {
         let $this = $(e.currentTarget)
         let text = $this.text().trim()
@@ -2266,6 +2296,8 @@ function setupLabelText (createSpanAnnotation, createRelAnnotation) {
             createSpanAnnotation({ text, color })
         } else if (type === 'relation') {
             createRelAnnotation({ type, text, color })
+        } else if (type === 'rect') {
+            createRectAnnotation({ text, color })
         }
     })
 }
