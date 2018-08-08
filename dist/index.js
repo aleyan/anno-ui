@@ -954,7 +954,7 @@ function tomlString (obj, type = null) {
 
     Object.keys(obj).forEach(prop => {
         let val = obj[prop]
-        if (prop === 'span' || prop === 'relation') {
+        if (prop === 'span' || prop === 'relation' || prop === 'rect') {
             lines.push(tomlString(val, prop))
         } else if (prop === 'labels') {
             if (isArray(val)) {
@@ -982,7 +982,7 @@ function tomlString (obj, type = null) {
 function toml2object (tomlData) {
     const data = __WEBPACK_IMPORTED_MODULE_0_toml___default.a.parse(tomlData)
     const object = {}
-    ;['span', 'relation'].forEach(type => {
+    ;['span', 'relation', 'rect'].forEach(type => {
         object[type] = {}
         object[type].labels = []
         if (isArray(data[type])) {
@@ -1945,7 +1945,7 @@ function setup ({
     saveAnnotationText,
     createSpanAnnotation,
     createRelAnnotation,
-    createRectAnnotation = null,
+    createRectAnnotation,
     colorChangeListener = function () {},
     namingRuleForExport = __WEBPACK_IMPORTED_MODULE_1__behavior__["a" /* defaultNamingRuleForExport */]
 }) {
@@ -2085,8 +2085,10 @@ function initializeLabelDb () {
         if (labelTypeObj.labels.length === 0) {
             if (labelType === 'span') {
                 labelTypeObj.labels.push(['span1', defaultColor])
-            } else {
+            } else if (labelType === 'relation') {
                 labelTypeObj.labels.push(['relation1', defaultColor])
+            } else if (labelType === 'rect') {
+                labelTypeObj.labels.push(['rect1', defaultColor])
             }
         }
         labelList[labelType] = labelTypeObj
