@@ -83,7 +83,7 @@ export function tomlString (obj, type = null) {
 
     Object.keys(obj).forEach(prop => {
         let val = obj[prop]
-        if (prop === 'span' || prop === 'relation') {
+        if (prop === 'span' || prop === 'relation' || prop === 'rect') {
             lines.push(tomlString(val, prop))
         } else if (prop === 'labels') {
             if (isArray(val)) {
@@ -111,7 +111,7 @@ export function tomlString (obj, type = null) {
 export function toml2object (tomlData) {
     const data = toml.parse(tomlData)
     const object = {}
-    ;['span', 'relation'].forEach(type => {
+    ;['span', 'relation', 'rect'].forEach(type => {
         object[type] = {}
         object[type].labels = []
         if (isArray(data[type])) {

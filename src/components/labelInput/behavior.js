@@ -52,8 +52,10 @@ function initializeLabelDb () {
         if (labelTypeObj.labels.length === 0) {
             if (labelType === 'span') {
                 labelTypeObj.labels.push(['span1', defaultColor])
-            } else {
+            } else if (labelType === 'relation') {
                 labelTypeObj.labels.push(['relation1', defaultColor])
+            } else if (labelType === 'rect') {
+                labelTypeObj.labels.push(['rect1', defaultColor])
             }
         }
         labelList[labelType] = labelTypeObj

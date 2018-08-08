@@ -16,7 +16,7 @@ export function setup ({
     saveAnnotationText,
     createSpanAnnotation,
     createRelAnnotation,
-    createRectAnnotation = null,
+    createRectAnnotation,
     colorChangeListener = function () {},
     namingRuleForExport = behavior.defaultNamingRuleForExport
 }) {
