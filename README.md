@@ -32,3 +32,10 @@ cd /path/to/pdfanno
 npm link anno-ui
 ```
 That's all.
+
+## Building
+After linking you either need to rebuild, or setup a process to automatically rebuild.
+```sh
+npm run build
+npm run build -- --watch
+```

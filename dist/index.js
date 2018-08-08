@@ -1954,11 +1954,7 @@ function setup ({
     __WEBPACK_IMPORTED_MODULE_0__core__["g" /* setup */](saveAnnotationText)
 
     // Define user actions.
-<<<<<<< HEAD
-    __WEBPACK_IMPORTED_MODULE_1__behavior__["c" /* setup */](createSpanAnnotation, createRelAnnotation, namingRuleForExport)
-=======
-    __WEBPACK_IMPORTED_MODULE_1__behavior__["b" /* setup */]({ createSpanAnnotation, createRelAnnotation, createRectAnnotation, namingRuleForExport })
->>>>>>> 0e60e9add808f8bdf9d09f3a7b0e291e633ecd06
+    __WEBPACK_IMPORTED_MODULE_1__behavior__["c" /* setup */]({ createSpanAnnotation, createRelAnnotation, createRectAnnotation, namingRuleForExport })
 
     // Define window event listeners.
     __WEBPACK_IMPORTED_MODULE_2__listener__["a" /* setup */](getSelectedAnnotations)
@@ -2104,9 +2100,6 @@ function initializeLabelDb () {
 function setupTabClick () {
     $('.js-label-tab').on('click', e => {
         const type = $(e.currentTarget).data('type')
-<<<<<<< HEAD
-        const labels = __WEBPACK_IMPORTED_MODULE_2__db__["a" /* getLabelList */]()[type].labels
-=======
         let d = __WEBPACK_IMPORTED_MODULE_2__db__["a" /* getLabelList */]()
         const labelObject = d[type] || {}
         let labels
@@ -2129,7 +2122,6 @@ function setupTabClick () {
         labelObject.labels = labels
         d[type] = labelObject
         __WEBPACK_IMPORTED_MODULE_2__db__["b" /* saveLabelList */](d)
->>>>>>> 0e60e9add808f8bdf9d09f3a7b0e291e633ecd06
 
         // currentTab = type
         __WEBPACK_IMPORTED_MODULE_3__core__["f" /* setCurrentTab */](type)
