@@ -49,15 +49,15 @@ function initializeLabelDb () {
     document.querySelectorAll('.js-label-tab').forEach((labelTab) => {
         const labelType = labelTab.getAttribute('data-type')
         const labelTypeObj = labelList[labelType] || { labels : [] }
-        if (labelTypeObj.labels.length === 0) {
-            if (labelType === 'span') {
-                labelTypeObj.labels.push(['span1', defaultColor])
-            } else if (labelType === 'relation') {
-                labelTypeObj.labels.push(['relation1', defaultColor])
-            } else if (labelType === 'rect') {
-                labelTypeObj.labels.push(['rect1', defaultColor])
-            }
-        }
+        //if (labelTypeObj.labels.length === 0) {
+        //    if (labelType === 'span') {
+        //        labelTypeObj.labels.push(['span1', defaultColor])
+        //    } else if (labelType === 'relation') {
+        //        labelTypeObj.labels.push(['relation1', defaultColor])
+        //    } else if (labelType === 'rect') {
+        //        labelTypeObj.labels.push(['rect1', defaultColor])
+        //    }
+        //}
         labelList[labelType] = labelTypeObj
     })
     db.saveLabelList(labelList)
@@ -72,28 +72,20 @@ function setupTabClick () {
         let d = db.getLabelList()
         const labelObject = d[type] || {}
         let labels
-        if (labelObject.labels === undefined) {
 
-            let text = ''
-            if (type === 'span') {
-                text = 'span1'
-            } else if (type === 'rect') {
-                text = 'rect1'
-            } else {
-                text = 'relation1'
-            }
-
-            labels = [ [ text, color.colors[0] ] ]
-        } else {
-            labels = labelObject.labels
-        }
+        //Object.keys(d)
+        labels = labelObject.labels
 
         labelObject.labels = labels
         d[type] = labelObject
         db.saveLabelList(d)
 
+        let counts = Object.keys(d).map(function(e) {
+                                return d[e]['labels'].length;
+                        })
+        let most_frequent_type = Object.keys(d)[counts.indexOf(Math.max.apply(null,counts))];
         // currentTab = type
-        core.setCurrentTab(type)
+        core.setCurrentTab(most_frequent_type)
 
         let $ul = $(`<ul class="tab-pane active label-list" data-type="${type}"/>`)
         labels.forEach((label, index) => {
