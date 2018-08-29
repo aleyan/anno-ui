@@ -81,7 +81,11 @@ function setupTabClick () {
         db.saveLabelList(d)
 
         let counts = Object.keys(d).map(function(e) {
-                                return d[e]['labels'].length;
+                            if ('labels' in d[e]) {
+                                return d[e]['labels'].length
+                            } else { 
+                                return 0
+                            }
                         })
         let most_frequent_type = Object.keys(d)[counts.indexOf(Math.max.apply(null,counts))];
         // currentTab = type
